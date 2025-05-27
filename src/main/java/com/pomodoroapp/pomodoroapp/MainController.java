@@ -93,6 +93,7 @@ public class MainController {
         lastTimesView.setItems(tableList);
     }
 
+
     public void toggleTimer(ActionEvent event) throws InterruptedException {
         if(!timer_running){
             if(timeStart == 0){
