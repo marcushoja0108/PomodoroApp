@@ -38,12 +38,16 @@ public class MainController {
     @FXML private Button timerButton;
     @FXML Button restartButton;
     @FXML Button statSceneSwitch;
+    @FXML Label messageLabel;
+    @FXML private Spinner<Integer> hoursSpinner;
+    @FXML private Spinner<Integer> minutesSpinner;
     private Scene scene;
     private Parent root;
     private ArrayList<BreakTime> breakTimes;
     private long breakStart;
     private long timeStart;
     private long timeSpan;
+    private String workTime;
     private boolean timer_running;
 
     ObservableList<BreakTime> tableList;
@@ -63,14 +67,10 @@ public class MainController {
             long minutes = 0;
             long hours = 0;
 
-            //Kalkuleringen av tid kan gjøres enklere. Se BreakTime klasse
             hours = Math.toIntExact((timeSpan / 3600000));
             minutes = Math.toIntExact((timeSpan / 60000) % 60);
             seconds = Math.toIntExact((timeSpan/1000) % 60);
-            String seconds_string = String.format("%02d", seconds);
-            String minutes_string = String.format("%02d", minutes);
-            String hours_string = String.format("%02d", hours);
-            timerLabel.setText(hours_string + ":" + minutes_string + ":" + seconds_string);
+            timerLabel.setText(String.format("%02d:%02d:%02d", hours, minutes, seconds));
             }
         };
 
@@ -91,34 +91,49 @@ public class MainController {
         tableBreakTimes.setCellValueFactory(new PropertyValueFactory<BreakTime, String>("breakTimeSpan"));
         tableList = FXCollections.observableArrayList(breakTimes);
         lastTimesView.setItems(tableList);
+        messageLabel.setVisible(false);
+        loadWorkTime();
     }
 
+    public void loadWorkTime(){
+/*        Gson gson = new Gson();
+        try{
+            FileReader reader = new FileReader("workTime.json");
+
+        } catch (FileNotFoundException e) {
+            throw new RuntimeException(e);
+        }*/
+        SpinnerValueFactory<Integer> hoursValueFactory = new SpinnerValueFactory.IntegerSpinnerValueFactory(0,23);
+        SpinnerValueFactory<Integer> minutesValueFactory = new SpinnerValueFactory.IntegerSpinnerValueFactory(0,59);
+    }
 
     public void toggleTimer(ActionEvent event) throws InterruptedException {
+        messageLabel.setVisible(false);
         if(!timer_running){
-            if(timeStart == 0){
-                timeStart = System.currentTimeMillis();
-                if(timeSpan == 0){
-                    breakStart = timeStart;
-                }
+            if(timeSpan == 0){
+            breakStart = System.currentTimeMillis();
+            timeStart = breakStart;
             }
+            if(timeSpan > 0){
+                timeStart = System.currentTimeMillis() - timeSpan;
+            }
+            timer.start();
             timer_running = true;
             timerButton.setText("Pause");
-            timer.start();
         }
         else{
             timer_running = false;
-            timerButton.setText("Start");
-            timeStart = 0;
             timer.stop();
+            timerButton.setText("Resume");
         }
     }
 
-    public void restartTimer(ActionEvent event) throws InterruptedException {
+    public void resetTimer(ActionEvent event) throws InterruptedException {
         saveBreakTime();
         breakStart = 0;
         timeSpan = 0;
-        toggleTimer(event);
+        timerButton.setText("Start");
+        timerLabel.setText("00:00:00");
     }
 
     public void saveBreakTime(){
@@ -133,7 +148,6 @@ public class MainController {
                 .setPrettyPrinting().create();
 
         String myJson = gson.toJson(breakTimes);
-        System.out.println(myJson);
 
         try {
             FileWriter writer = new FileWriter("breaks.json");
@@ -143,6 +157,8 @@ public class MainController {
         catch(IOException e){
             throw new RuntimeException(e);
         }
+        messageLabel.setText("Break saved!");
+        messageLabel.setVisible(true);
     }
 
     public void switchToStatisticsScene(ActionEvent event) throws IOException{
@@ -150,6 +166,14 @@ public class MainController {
         FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("statistics-view.fxml"));
         Scene scene = new Scene(fxmlLoader.load());
         stage.setTitle("Pomodoro Statistics");
+        stage.setScene(scene);
+
+    }
+    public void switchToLineChartScene(ActionEvent event) throws IOException{
+        Stage stage = (Stage)statSceneSwitch.getScene().getWindow();
+        FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("lineChart-view.fxml"));
+        Scene scene = new Scene(fxmlLoader.load());
+        stage.setTitle("Pomodoro Line chart");
         stage.setScene(scene);
 
     }

@@ -20,7 +20,7 @@
             <Font size="18.0" />
          </font>
       </Button>
-      <Label layoutX="104.0" layoutY="111.0" text="Averages">
+      <Label layoutX="104.0" layoutY="111.0" text="Average">
          <font>
             <Font name="System Bold" size="20.0" />
          </font>
@@ -57,7 +57,7 @@
             </Label>
             <Label text="Break time" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER">
                <font>
-                  <Font size="15.0" />
+                  <Font name="System Bold" size="15.0" />
                </font>
             </Label>
          </children>

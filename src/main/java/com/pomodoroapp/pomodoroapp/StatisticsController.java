@@ -28,11 +28,15 @@ public class StatisticsController {
     @FXML Label totalBreakTimeLabel;
     @FXML Label totalBreakCountLabel;
 
+
     private ArrayList<BreakTime> breakTimes;
     private AtomicInteger totalBreakTime;
+
+
     private int totalBreakCount;
     private double avgBreakTime;
     private double avgBreakCount;
+    private ArrayList<String> breakDates;
 
     private Stage stage;
     private Scene scene;
@@ -55,13 +59,32 @@ public class StatisticsController {
         catch(FileNotFoundException e){
             throw new RuntimeException(e);
         }
-        getTotalBreakTime();
-        getTotalBreakCount();
-        getAverageBreakTime();
-        getAverageBreakCount();
+        calcTotalBreakTime();
+        calcTotalBreakCount();
+        calcAverageBreakTime();
+        calcAverageBreakCount();
+    }
+    //getters
+    public ArrayList<BreakTime> getBreakTimes() {
+        return breakTimes;
     }
 
-    private void getTotalBreakTime() {
+    public double getAvgBreakTime() {
+        return avgBreakTime;
+    }
+
+    public double getAvgBreakCount() {
+        return avgBreakCount;
+    }
+    public int getTotalBreakCount() {
+        return totalBreakCount;
+    }
+    public ArrayList<String> getBreakDates() {
+        return breakDates;
+    }
+
+    //calculations
+    private void calcTotalBreakTime() {
         totalBreakTime = new AtomicInteger();
         if(breakTimes.isEmpty()){
             return;
@@ -72,13 +95,13 @@ public class StatisticsController {
 
         totalBreakTimeLabel.setText(getTimeStringFromMillis(totalBreakTime.longValue()));
     }
-    private void getTotalBreakCount() {
+    private void calcTotalBreakCount() {
         totalBreakCount = breakTimes.size();
         totalBreakCountLabel.setText(String.valueOf(totalBreakCount));
     }
-    private void getAverageBreakTime() {
+    private void calcAverageBreakTime() {
         int breaks = breakTimes.size();
-        double avgBreakTime = 0;
+        avgBreakTime = 0;
         double totalTime = totalBreakTime.doubleValue();
         if(breakTimes.isEmpty()){
             return;
@@ -87,17 +110,17 @@ public class StatisticsController {
         }
         avgBreakTimeLabel.setText(getTimeStringFromMillis((long)avgBreakTime));
     }
-    private void getAverageBreakCount() {
-        ArrayList<String> dates = new ArrayList<>();
+    private void calcAverageBreakCount() {
+        breakDates = new ArrayList<>();
         breakTimes.forEach(breakTime -> {
             String breakDate = breakTime.shortPerformedBreak.substring(0, 10);
-            if(dates.isEmpty() || !dates.contains(breakDate)){
-                dates.add(breakDate);
+            if(breakDates.isEmpty() || !breakDates.contains(breakDate)){
+                breakDates.add(breakDate);
             };
         });
-        avgBreakCount = (double) totalBreakCount / (long) dates.size();
+        avgBreakCount = (double) totalBreakCount / (long) breakDates.size();
         avgBreakCountLabel.setText(String.format("%.3f", avgBreakCount));
-        System.out.println(dates);
+        System.out.println(breakDates);
     }
 
     private String getTimeStringFromMillis(long timeMillis){
