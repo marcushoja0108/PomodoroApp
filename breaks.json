@@ -1,0 +1,62 @@
+[
+  {
+    "performedBreak": 1747906800000,
+    "shortPerformedBreak": "22/05/2025 11:00",
+    "breakTimeSpanMillis": 300000,
+    "breakTimeSpan": "00:05:00"
+  },
+  {
+    "performedBreak": 1747908600000,
+    "shortPerformedBreak": "22/05/2025 11:30",
+    "breakTimeSpanMillis": 900000,
+    "breakTimeSpan": "00:15:00"
+  },
+  {
+    "performedBreak": 1747915800000,
+    "shortPerformedBreak": "22/05/2025 13:30",
+    "breakTimeSpanMillis": 600000,
+    "breakTimeSpan": "00:10:00"
+  },
+  {
+    "performedBreak": 1748001000000,
+    "shortPerformedBreak": "23/05/2025 14:30",
+    "breakTimeSpanMillis": 300000,
+    "breakTimeSpan": "00:05:00"
+  },
+  {
+    "performedBreak": 1748004600000,
+    "shortPerformedBreak": "23/05/2025 15:30",
+    "breakTimeSpanMillis": 1200000,
+    "breakTimeSpan": "00:20:00"
+  },
+  {
+    "performedBreak": 1748263200000,
+    "shortPerformedBreak": "26/05/2025 15:00",
+    "breakTimeSpanMillis": 420000,
+    "breakTimeSpan": "00:07:00"
+  },
+  {
+    "performedBreak": 1748270400000,
+    "shortPerformedBreak": "26/05/2025 17:00",
+    "breakTimeSpanMillis": 300000,
+    "breakTimeSpan": "00:05:00"
+  },
+  {
+    "performedBreak": 1748432400000,
+    "shortPerformedBreak": "28/05/2025 13:40",
+    "breakTimeSpanMillis": 900000,
+    "breakTimeSpan": "00:15:00"
+  },
+  {
+    "performedBreak": 1748434200000,
+    "shortPerformedBreak": "28/05/2025 14:10",
+    "breakTimeSpanMillis": 600000,
+    "breakTimeSpan": "00:10:00"
+  },
+  {
+    "performedBreak": 1748437800000,
+    "shortPerformedBreak": "28/05/2025 15:10",
+    "breakTimeSpanMillis": 300000,
+    "breakTimeSpan": "00:05:00"
+  }
+]

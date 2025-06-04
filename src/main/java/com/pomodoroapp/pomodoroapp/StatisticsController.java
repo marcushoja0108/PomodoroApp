@@ -1,10 +1,10 @@
 package com.pomodoroapp.pomodoroapp;
 
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.stage.Stage;
@@ -17,6 +17,7 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.lang.reflect.Type;
 import java.time.Duration;
+import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.concurrent.atomic.AtomicInteger;
 
@@ -24,25 +25,34 @@ public class StatisticsController {
     @FXML Button mainViewSwitch;
     @FXML Label avgBreakTimeLabel;
     @FXML Label avgBreakCountLabel;
+    @FXML Label avgWorkTimeLabel;
 
     @FXML Label totalBreakTimeLabel;
     @FXML Label totalBreakCountLabel;
+    @FXML Label totalWorkTimeLabel;
 
 
+    private Settings settings;
     private ArrayList<BreakTime> breakTimes;
     private AtomicInteger totalBreakTime;
-
-
     private int totalBreakCount;
+    private long totalWorkTime;
     private double avgBreakTime;
     private double avgBreakCount;
+    private long avgWorkTime;
     private ArrayList<String> breakDates;
 
-    private Stage stage;
-    private Scene scene;
-    private Parent root;
-
     public void initialize(){
+        Gson gson = new GsonBuilder().setPrettyPrinting().create();
+        try{
+            FileReader reader = new FileReader("settings.json");
+            settings = gson.fromJson(reader, Settings.class);
+        } catch (FileNotFoundException e) {
+            throw new RuntimeException(e);
+        }
+        if(settings == null){
+            settings = new Settings(LocalTime.of(9, 0), LocalTime.of(15, 0));
+        }
         loadData();
     }
 
@@ -63,7 +73,10 @@ public class StatisticsController {
         calcTotalBreakCount();
         calcAverageBreakTime();
         calcAverageBreakCount();
+        calcTotalWorkTime();
+        calcAverageWorkTime();
     }
+
     //getters
     public ArrayList<BreakTime> getBreakTimes() {
         return breakTimes;
@@ -82,6 +95,13 @@ public class StatisticsController {
     public ArrayList<String> getBreakDates() {
         return breakDates;
     }
+    public long getTotalWorkTime() {
+        return totalWorkTime;
+    }
+
+    public long getAvgWorkTime() {
+        return avgWorkTime;
+    }
 
     //calculations
     private void calcTotalBreakTime() {
@@ -98,6 +118,11 @@ public class StatisticsController {
     private void calcTotalBreakCount() {
         totalBreakCount = breakTimes.size();
         totalBreakCountLabel.setText(String.valueOf(totalBreakCount));
+    }
+    private void calcTotalWorkTime(){
+        long potentialWorkTime = (breakDates.size() * settings.workTimeSpan);
+        totalWorkTime = potentialWorkTime - totalBreakTime.longValue();
+        totalWorkTimeLabel.setText(getTimeStringFromMillis(totalWorkTime));
     }
     private void calcAverageBreakTime() {
         int breaks = breakTimes.size();
@@ -121,6 +146,10 @@ public class StatisticsController {
         avgBreakCount = (double) totalBreakCount / (long) breakDates.size();
         avgBreakCountLabel.setText(String.format("%.3f", avgBreakCount));
         System.out.println(breakDates);
+    }
+    private void calcAverageWorkTime(){
+        avgWorkTime = (long) (settings.workTimeSpan - avgBreakTime);
+        avgWorkTimeLabel.setText(getTimeStringFromMillis(avgWorkTime));
     }
 
     private String getTimeStringFromMillis(long timeMillis){

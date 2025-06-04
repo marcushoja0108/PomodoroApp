@@ -14,15 +14,14 @@ import javafx.scene.control.*;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 
 
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.FileWriter;
-import java.io.IOException;
+import java.io.*;
 import java.lang.reflect.Type;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
@@ -41,14 +40,18 @@ public class MainController {
     @FXML Label messageLabel;
     @FXML private Spinner<Integer> hoursSpinner;
     @FXML private Spinner<Integer> minutesSpinner;
+    @FXML private Label fromWorkTimeLabel;
+    @FXML private Label toWorkTimeLabel;
+    @FXML private Button confirmWorkButton;
     private Scene scene;
     private Parent root;
     private ArrayList<BreakTime> breakTimes;
     private long breakStart;
     private long timeStart;
     private long timeSpan;
-    private String workTime;
     private boolean timer_running;
+    private Settings settings;
+    private Label editableWorkLabel;
 
     ObservableList<BreakTime> tableList;
 
@@ -96,15 +99,97 @@ public class MainController {
     }
 
     public void loadWorkTime(){
-/*        Gson gson = new Gson();
-        try{
-            FileReader reader = new FileReader("workTime.json");
 
-        } catch (FileNotFoundException e) {
+        Gson gson = new GsonBuilder().setPrettyPrinting().create();
+        File file = new File("settings.json");
+        if(file.exists()){
+            System.out.println("File exists, loading settings from json.");
+            try{
+                FileReader reader = new FileReader("settings.json");
+                settings = gson.fromJson(reader, Settings.class);
+                System.out.println(settings.getFromWorkTime());
+                System.out.println(settings.getToWorkTime());
+            } catch (FileNotFoundException e) {
+                throw new RuntimeException(e);
+            }
+            if(settings == null){
+                System.out.println("File exists, but is null. Constructing settings object.");
+                settings = new Settings(LocalTime.of(9, 0), LocalTime.of(15, 0));
+            }
+        }
+        else{
+            settings = new Settings(LocalTime.of(9, 0), LocalTime.of(15, 0));
+            System.out.println("File doesnt exist, creating new settings object.");
+        }
+            createSpinners();
+
+        fromWorkTimeLabel.setText(settings.getFromWorkTime());
+        fromWorkTimeLabel.addEventHandler(MouseEvent.MOUSE_CLICKED, this::showWorkTimeControls);
+
+        toWorkTimeLabel.setText(settings.getToWorkTime());
+        toWorkTimeLabel.addEventHandler(MouseEvent.MOUSE_CLICKED, this::showWorkTimeControls);
+    }
+
+    public void createSpinners(){
+        int hoursInt = Integer.parseInt(settings.fromWorkTime.substring(0, 2));
+        int minutesInt = Integer.parseInt(settings.fromWorkTime.substring(3, 5));
+        SpinnerValueFactory<Integer> hoursValueFactory =
+                new SpinnerValueFactory.IntegerSpinnerValueFactory(0,23, hoursInt);
+        hoursSpinner.setValueFactory(hoursValueFactory);
+        SpinnerValueFactory<Integer> minutesValueFactory =
+                new SpinnerValueFactory.IntegerSpinnerValueFactory(0,59, minutesInt);
+        minutesSpinner.setValueFactory(minutesValueFactory);
+    }
+
+    public void updateWorkTime(){
+        LocalTime spinnerValue = LocalTime.of(hoursSpinner.getValue(), minutesSpinner.getValue());
+        if(editableWorkLabel == fromWorkTimeLabel){
+            settings.fromWorkTime = spinnerValue.toString();
+            fromWorkTimeLabel.setText(settings.getFromWorkTime());
+            settings.updateWorkTimeSpan(spinnerValue, LocalTime.parse(settings.toWorkTime));
+        }
+        else if (editableWorkLabel == toWorkTimeLabel) {
+            settings.toWorkTime = spinnerValue.toString();
+            toWorkTimeLabel.setText(settings.getToWorkTime());
+            settings.updateWorkTimeSpan(LocalTime.parse(settings.fromWorkTime), spinnerValue);
+        }
+        writeSettingsJson();
+
+        hoursSpinner.setVisible(false);
+        minutesSpinner.setVisible(false);
+        confirmWorkButton.setVisible(false);
+
+        messageLabel.setText("Work time updated.");
+        messageLabel.setVisible(true);
+    }
+    public void writeSettingsJson(){
+        Gson gson = new GsonBuilder().setPrettyPrinting().create();
+        String settingsJson = gson.toJson(settings);
+        System.out.println(settingsJson);
+        try{
+            FileWriter writer = new FileWriter("settings.json");
+            gson.toJson(settings, writer);
+            writer.close();
+        } catch (IOException e) {
             throw new RuntimeException(e);
-        }*/
-        SpinnerValueFactory<Integer> hoursValueFactory = new SpinnerValueFactory.IntegerSpinnerValueFactory(0,23);
-        SpinnerValueFactory<Integer> minutesValueFactory = new SpinnerValueFactory.IntegerSpinnerValueFactory(0,59);
+        }
+    }
+
+    @FXML
+    public void showWorkTimeControls(MouseEvent event){
+        messageLabel.setVisible(false);
+        hoursSpinner.setVisible(true);
+        minutesSpinner.setVisible(true);
+        confirmWorkButton.setVisible(true);
+        if(event.getSource() == fromWorkTimeLabel){
+            editableWorkLabel = fromWorkTimeLabel;
+        } else if (event.getSource() == toWorkTimeLabel) {
+            editableWorkLabel = toWorkTimeLabel;
+        }
+        int hours = Integer.parseInt(editableWorkLabel.getText().substring(0, 2));
+        hoursSpinner.getValueFactory().setValue(hours);
+        int minutes = Integer.parseInt(editableWorkLabel.getText().substring(3, 5));
+        minutesSpinner.getValueFactory().setValue(minutes);
     }
 
     public void toggleTimer(ActionEvent event) throws InterruptedException {
@@ -146,8 +231,6 @@ public class MainController {
 
         Gson gson = new GsonBuilder()
                 .setPrettyPrinting().create();
-
-        String myJson = gson.toJson(breakTimes);
 
         try {
             FileWriter writer = new FileWriter("breaks.json");
