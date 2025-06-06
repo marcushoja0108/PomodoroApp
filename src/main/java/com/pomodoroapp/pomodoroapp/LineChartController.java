@@ -23,9 +23,6 @@ public class LineChartController implements Initializable {
 
     StatisticsController statisticsController;
     private ArrayList<BreakTime> breakTimes;
-    private int totalBreakCount;
-    private double avgBreakTime;
-    private double avgBreakCount;
     private ArrayList<String> breakDates;
 
     @Override
@@ -44,9 +41,6 @@ public class LineChartController implements Initializable {
 
     public void loadData() {
         breakTimes = statisticsController.getBreakTimes();
-        totalBreakCount = statisticsController.getTotalBreakCount();
-        avgBreakTime = statisticsController.getAvgBreakTime();
-        avgBreakCount = statisticsController.getAvgBreakCount();
         breakDates = statisticsController.getBreakDates();
     }
 

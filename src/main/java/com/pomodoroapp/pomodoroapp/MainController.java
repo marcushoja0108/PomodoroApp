@@ -24,6 +24,7 @@ import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Collections;
 
 public class MainController {
 
@@ -90,12 +91,21 @@ public class MainController {
         } catch (FileNotFoundException e) {
             throw new RuntimeException(e);
         }
+        setTableData();
+        messageLabel.setVisible(false);
+        loadWorkTime();
+    }
+
+    public void setTableData(){
         tableBreakDates.setCellValueFactory(new PropertyValueFactory<BreakTime, String>("shortPerformedBreak"));
         tableBreakTimes.setCellValueFactory(new PropertyValueFactory<BreakTime, String>("breakTimeSpan"));
         tableList = FXCollections.observableArrayList(breakTimes);
+        if(tableList.size() > 9){
+//            tableList.subList(0,9);   Why this no work
+            tableList.subList(0, (int) ((long) tableList.size() - 9)).clear();
+        }
+        Collections.reverse(tableList);
         lastTimesView.setItems(tableList);
-        messageLabel.setVisible(false);
-        loadWorkTime();
     }
 
     public void loadWorkTime(){
@@ -107,8 +117,6 @@ public class MainController {
             try{
                 FileReader reader = new FileReader("settings.json");
                 settings = gson.fromJson(reader, Settings.class);
-                System.out.println(settings.getFromWorkTime());
-                System.out.println(settings.getToWorkTime());
             } catch (FileNotFoundException e) {
                 throw new RuntimeException(e);
             }
@@ -165,7 +173,6 @@ public class MainController {
     public void writeSettingsJson(){
         Gson gson = new GsonBuilder().setPrettyPrinting().create();
         String settingsJson = gson.toJson(settings);
-        System.out.println(settingsJson);
         try{
             FileWriter writer = new FileWriter("settings.json");
             gson.toJson(settings, writer);
@@ -223,11 +230,9 @@ public class MainController {
 
     public void saveBreakTime(){
         BreakTime saveBreak = new BreakTime(breakStart, timeSpan);
-        System.out.println(saveBreak);
         breakTimes.add(saveBreak);
         //Update table
-        tableList = FXCollections.observableArrayList(breakTimes);
-        lastTimesView.setItems(tableList);
+        setTableData();
 
         Gson gson = new GsonBuilder()
                 .setPrettyPrinting().create();

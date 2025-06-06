@@ -145,7 +145,6 @@ public class StatisticsController {
         });
         avgBreakCount = (double) totalBreakCount / (long) breakDates.size();
         avgBreakCountLabel.setText(String.format("%.3f", avgBreakCount));
-        System.out.println(breakDates);
     }
     private void calcAverageWorkTime(){
         avgWorkTime = (long) (settings.workTimeSpan - avgBreakTime);

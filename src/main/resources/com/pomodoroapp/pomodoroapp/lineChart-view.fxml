@@ -8,8 +8,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.pomodoroapp.pomodoroapp.LineChartController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: #292640;" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.pomodoroapp.pomodoroapp.LineChartController">
    <children>
       <LineChart fx:id="lineChart" layoutX="49.0" layoutY="74.0" prefHeight="309.0" prefWidth="489.0">
         <xAxis>
@@ -19,14 +18,19 @@
           <NumberAxis side="LEFT" />
         </yAxis>
       </LineChart>
-      <Button fx:id="mainViewSwitch" layoutX="14.0" layoutY="14.0" mnemonicParsing="false" onAction="#switchToMainScene" text="Main page">
+      <Button fx:id="mainViewSwitch" layoutX="39.0" layoutY="24.0" mnemonicParsing="false" onAction="#switchToMainScene" stylesheets="@Main.css" text="Main page">
          <font>
-            <Font size="15.0" />
+            <Font size="18.0" />
          </font>
       </Button>
       <Label layoutX="22.0" layoutY="218.0" rotate="-90.0" text="Minutes" textAlignment="CENTER">
          <font>
             <Font size="15.0" />
+         </font>
+      </Label>
+      <Label layoutX="254.0" layoutY="28.0" styleClass="header" stylesheets="@Main.css" text="Line chart">
+         <font>
+            <Font size="24.0" />
          </font>
       </Label>
    </children>

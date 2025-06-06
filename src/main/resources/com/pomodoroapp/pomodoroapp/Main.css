@@ -1,0 +1,30 @@
+﻿.main
+{
+    -fx-background-color : white;
+}
+.button
+{
+    -fx-background-color : #58699A;
+    -fx-text-fill : white;
+}
+.button:hover
+{
+    -fx-background-color : #6B7CAB;
+}
+.button:pressed
+{
+    -fx-background-color : #49587A;
+}
+.header
+{
+    -fx-text-fill : #fcd581;
+}
+.statGrid
+{
+    -fx-background-color : #312C50;
+    -fx-border : white;
+}
+.statLabel
+{
+    -fx-text-fill : white;
+}

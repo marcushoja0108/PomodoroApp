@@ -8,29 +8,29 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.pomodoroapp.pomodoroapp.StatisticsController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: #292640;" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.pomodoroapp.pomodoroapp.StatisticsController">
    <children>
-      <Label layoutX="254.0" layoutY="40.0" text="Statistics">
+      <Label layoutX="254.0" layoutY="40.0" styleClass="header" stylesheets="@Main.css" text="Statistics">
          <font>
             <Font size="24.0" />
          </font>
       </Label>
-      <Button fx:id="mainViewSwitch" layoutX="40.0" layoutY="38.0" mnemonicParsing="false" onAction="#switchToMainScene" text="Main view">
+      <Button fx:id="mainViewSwitch" layoutX="40.0" layoutY="38.0" mnemonicParsing="false" onAction="#switchToMainScene" stylesheets="@Main.css" text="Main view">
          <font>
             <Font size="18.0" />
          </font>
       </Button>
-      <Label layoutX="104.0" layoutY="111.0" text="Average">
+      <Label layoutX="104.0" layoutY="111.0" styleClass="header" stylesheets="@Main.css" text="Average">
          <font>
             <Font name="System Bold" size="20.0" />
          </font>
       </Label>
-      <Label layoutX="434.0" layoutY="111.0" text="Total">
+      <Label layoutX="434.0" layoutY="111.0" styleClass="header" stylesheets="@Main.css" text="Total">
          <font>
             <Font name="System Bold" size="20.0" />
          </font>
       </Label>
-      <GridPane gridLinesVisible="true" layoutX="348.0" layoutY="151.0" prefHeight="93.0" prefWidth="221.0">
+      <GridPane layoutX="348.0" layoutY="151.0" prefHeight="93.0" prefWidth="221.0" styleClass="statGrid" stylesheets="@Main.css">
         <columnConstraints>
           <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
           <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
@@ -40,29 +40,29 @@
           <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
-            <Label fx:id="totalBreakTimeLabel" text="Breaktime" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER">
+            <Label fx:id="totalBreakTimeLabel" styleClass="statLabel" stylesheets="@Main.css" text="Breaktime" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER">
                <font>
                   <Font size="15.0" />
                </font>
             </Label>
-            <Label fx:id="totalBreakCountLabel" text="Breakcount" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
+            <Label fx:id="totalBreakCountLabel" styleClass="statLabel" stylesheets="@Main.css" text="Breakcount" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
                <font>
                   <Font size="15.0" />
                </font>
             </Label>
-            <Label text="Breaks" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
+            <Label styleClass="header" stylesheets="@Main.css" text="Breaks" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
                <font>
                   <Font name="System Bold" size="15.0" />
                </font>
             </Label>
-            <Label text="Break time" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER">
+            <Label styleClass="header" stylesheets="@Main.css" text="Break time" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER">
                <font>
                   <Font name="System Bold" size="15.0" />
                </font>
             </Label>
          </children>
       </GridPane>
-      <GridPane gridLinesVisible="true" layoutX="32.0" layoutY="151.0" prefHeight="93.0" prefWidth="231.0">
+      <GridPane layoutX="32.0" layoutY="151.0" prefHeight="93.0" prefWidth="231.0" styleClass="statGrid" stylesheets="@Main.css">
          <columnConstraints>
             <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
             <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
@@ -72,29 +72,29 @@
             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
          </rowConstraints>
          <children>
-            <Label fx:id="avgBreakTimeLabel" text="Breaktime" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
+            <Label fx:id="avgBreakTimeLabel" styleClass="statLabel" stylesheets="@Main.css" text="Breaktime" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
                <font>
                   <Font size="15.0" />
                </font>
             </Label>
-            <Label fx:id="avgBreakCountLabel" text="Breakcount" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1">
+            <Label fx:id="avgBreakCountLabel" styleClass="statLabel" stylesheets="@Main.css" text="Breakcount" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1">
                <font>
                   <Font size="15.0" />
                </font>
             </Label>
-            <Label text="Break time" GridPane.halignment="CENTER">
+            <Label styleClass="header" stylesheets="@Main.css" text="Break time" GridPane.halignment="CENTER">
                <font>
                   <Font name="System Bold" size="15.0" />
                </font>
             </Label>
-            <Label text="Daily breaks" GridPane.halignment="CENTER" GridPane.rowIndex="1">
+            <Label styleClass="header" stylesheets="@Main.css" text="Daily breaks" GridPane.halignment="CENTER" GridPane.rowIndex="1">
                <font>
                   <Font name="System Bold" size="15.0" />
                </font>
             </Label>
          </children>
       </GridPane>
-      <GridPane gridLinesVisible="true" layoutX="32.0" layoutY="269.0" prefHeight="46.0" prefWidth="231.0">
+      <GridPane layoutX="32.0" layoutY="269.0" prefHeight="46.0" prefWidth="231.0" styleClass="statGrid" stylesheets="@Main.css">
          <columnConstraints>
             <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
             <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
@@ -103,19 +103,19 @@
             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
          </rowConstraints>
          <children>
-            <Label fx:id="avgWorkTimeLabel" alignment="CENTER" prefWidth="107.0" text="5" textAlignment="CENTER" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
+            <Label fx:id="avgWorkTimeLabel" alignment="CENTER" prefWidth="107.0" styleClass="statLabel" stylesheets="@Main.css" text="5" textAlignment="CENTER" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
                <font>
                   <Font size="15.0" />
                </font>
             </Label>
-            <Label text="Daily work" GridPane.halignment="CENTER">
+            <Label styleClass="header" stylesheets="@Main.css" text="Daily work" GridPane.halignment="CENTER">
                <font>
                   <Font name="System Bold" size="15.0" />
                </font>
             </Label>
          </children>
       </GridPane>
-      <GridPane gridLinesVisible="true" layoutX="348.0" layoutY="269.0" prefHeight="46.0" prefWidth="221.0">
+      <GridPane layoutX="348.0" layoutY="269.0" prefHeight="46.0" prefWidth="221.0" styleClass="statGrid" stylesheets="@Main.css">
          <columnConstraints>
             <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
             <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
@@ -124,12 +124,12 @@
             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
          </rowConstraints>
          <children>
-            <Label fx:id="totalWorkTimeLabel" alignment="CENTER" text="Work time tot" textAlignment="CENTER" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
+            <Label fx:id="totalWorkTimeLabel" alignment="CENTER" styleClass="statLabel" stylesheets="@Main.css" text="Work time tot" textAlignment="CENTER" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
                <font>
                   <Font size="15.0" />
                </font>
             </Label>
-            <Label text="Work time" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
+            <Label styleClass="header" stylesheets="@Main.css" text="Work time" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
                <font>
                   <Font name="System Bold" size="15.0" />
                </font>

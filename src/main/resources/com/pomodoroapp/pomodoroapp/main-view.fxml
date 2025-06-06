@@ -8,29 +8,29 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.pomodoroapp.pomodoroapp.MainController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: #292640;" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.pomodoroapp.pomodoroapp.MainController">
    <children>
-      <Button fx:id="timerButton" alignment="CENTER" layoutX="368.0" layoutY="139.0" mnemonicParsing="false" onAction="#toggleTimer" text="Start">
+      <Button fx:id="timerButton" alignment="CENTER" layoutX="368.0" layoutY="139.0" mnemonicParsing="false" onAction="#toggleTimer" stylesheets="@Main.css" text="Start" textFill="WHITE">
          <font>
             <Font size="20.0" />
          </font>
       </Button>
-      <Label fx:id="timerLabel" alignment="CENTER" contentDisplay="CENTER" layoutX="400.0" layoutY="89.0" text="00:00:00" textAlignment="CENTER">
+      <Label fx:id="timerLabel" alignment="CENTER" contentDisplay="CENTER" layoutX="393.0" layoutY="90.0" prefHeight="45.0" prefWidth="132.0" style="-fx-background-color: black;" text="00:00:00" textAlignment="CENTER" textFill="#13fa02">
          <font>
             <Font size="30.0" />
          </font>
       </Label>
-      <Label fx:id="clockLabel" layoutX="14.0" layoutY="14.0" text="12:30">
+      <Label fx:id="clockLabel" layoutX="14.0" layoutY="9.0" text="12:30" textFill="WHITE">
          <font>
-            <Font name="Lucida Sans Unicode" size="20.0" />
+            <Font name="Lucida Sans Unicode" size="26.0" />
          </font>
       </Label>
-      <Button fx:id="restartButton" alignment="CENTER" layoutX="476.0" layoutY="139.0" mnemonicParsing="false" onAction="#resetTimer" text="Reset">
+      <Button fx:id="restartButton" alignment="CENTER" layoutX="476.0" layoutY="139.0" mnemonicParsing="false" onAction="#resetTimer" stylesheets="@Main.css" text="Reset" textFill="WHITE">
          <font>
             <Font size="20.0" />
          </font>
       </Button>
-      <TableView fx:id="lastTimesView" layoutX="14.0" layoutY="139.0" prefHeight="231.0" prefWidth="322.0">
+      <TableView fx:id="lastTimesView" layoutX="14.0" layoutY="139.0" prefHeight="242.0" prefWidth="322.0">
         <columns>
           <TableColumn fx:id="tableBreakDates" editable="false" prefWidth="164.0" text="Time started" />
           <TableColumn fx:id="tableBreakTimes" editable="false" prefWidth="156.0" text="Length" />
@@ -39,49 +39,49 @@
             <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
          </columnResizePolicy>
       </TableView>
-      <Button fx:id="statSceneSwitch" layoutX="97.0" layoutY="15.0" mnemonicParsing="false" onAction="#switchToStatisticsScene" text="Statistics">
+      <Button fx:id="statSceneSwitch" layoutX="104.0" layoutY="15.0" mnemonicParsing="false" onAction="#switchToStatisticsScene" stylesheets="@Main.css" text="Statistics" textFill="WHITE">
          <font>
             <Font size="15.0" />
          </font>
       </Button>
-      <Button fx:id="lineSwitchScene" layoutX="181.0" layoutY="15.0" mnemonicParsing="false" onAction="#switchToLineChartScene" text="Line chart">
+      <Button fx:id="lineSwitchScene" layoutX="200.0" layoutY="15.0" mnemonicParsing="false" onAction="#switchToLineChartScene" stylesheets="@Main.css" text="Line chart" textFill="WHITE">
          <font>
             <Font size="15.0" />
          </font>
       </Button>
-      <Label layoutX="99.0" layoutY="98.0" text="Previous breaks">
+      <Label layoutX="99.0" layoutY="98.0" styleClass="header" stylesheets="@Main.css" text="Previous breaks" textFill="#fcd581">
          <font>
             <Font name="Franklin Gothic Medium" size="24.0" />
          </font>
       </Label>
-      <Label fx:id="messageLabel" alignment="CENTER" contentDisplay="CENTER" layoutX="411.0" layoutY="345.0" text="placeholder" textAlignment="CENTER" textFill="#002fff">
+      <Label fx:id="messageLabel" alignment="CENTER" contentDisplay="CENTER" layoutX="411.0" layoutY="345.0" text="placeholder" textAlignment="CENTER" textFill="#13fa02">
          <font>
             <Font name="System Bold" size="16.0" />
          </font>
       </Label>
-      <Label fx:id="fromWorkTimeLabel" alignment="CENTER" contentDisplay="CENTER" layoutX="395.0" layoutY="238.0" prefHeight="21.0" prefWidth="57.0" text="09:00">
+      <Label fx:id="fromWorkTimeLabel" alignment="CENTER" contentDisplay="CENTER" layoutX="395.0" layoutY="238.0" prefHeight="21.0" prefWidth="57.0" text="09:00" textFill="#fcd581">
          <font>
             <Font size="15.0" />
          </font>
       </Label>
       <Spinner fx:id="hoursSpinner" layoutX="388.0" layoutY="264.0" prefHeight="25.0" prefWidth="68.0" visible="false" />
       <Spinner fx:id="minutesSpinner" layoutX="456.0" layoutY="264.0" prefHeight="25.0" prefWidth="68.0" visible="false" />
-      <Button fx:id="confirmWorkButton" layoutX="388.0" layoutY="299.0" mnemonicParsing="false" onAction="#updateWorkTime" text="Confirm changes" visible="false">
+      <Button fx:id="confirmWorkButton" layoutX="388.0" layoutY="299.0" mnemonicParsing="false" onAction="#updateWorkTime" stylesheets="@Main.css" text="Confirm changes" visible="false">
          <font>
             <Font size="15.0" />
          </font>
       </Button>
-      <Label fx:id="toWorkTimeLabel" alignment="CENTER" contentDisplay="CENTER" layoutX="456.0" layoutY="238.0" prefHeight="21.0" prefWidth="57.0" text="15:00">
+      <Label fx:id="toWorkTimeLabel" alignment="CENTER" contentDisplay="CENTER" layoutX="456.0" layoutY="238.0" prefHeight="21.0" prefWidth="57.0" text="15:00" textFill="#fcd581">
          <font>
             <Font size="15.0" />
          </font>
       </Label>
-      <Label layoutX="450.0" layoutY="233.0" text="-">
+      <Label layoutX="450.0" layoutY="233.0" text="-" textFill="#fcd581">
          <font>
             <Font size="21.0" />
          </font>
       </Label>
-      <Label layoutX="406.0" layoutY="200.0" text="Work Time">
+      <Label layoutX="406.0" layoutY="200.0" styleClass="header" stylesheets="@Main.css" text="Work Time" textFill="#fcd581">
          <font>
             <Font name="Franklin Gothic Medium" size="20.0" />
          </font>
