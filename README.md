@@ -3,7 +3,7 @@
 # Pomodoro timer ⏱️
 
 This is a simple pomodoro timer meant for timing breaks during a workday, as well as keeping track of your break flow over time. You can start and pause a break, then reset the timer to save the break time locally. The program puts all your data in a statistics page and you can view your habits over time in a line chart.
-![app_screenshot.PNG](src/main/resources/app_screenshot.PNG)
+![app_screenshot.PNG](resources/app_screenshot.PNG)
 
 ## Features 🚀
 

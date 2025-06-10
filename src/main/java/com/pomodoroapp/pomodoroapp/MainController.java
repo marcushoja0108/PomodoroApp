@@ -101,7 +101,6 @@ public class MainController {
         tableBreakTimes.setCellValueFactory(new PropertyValueFactory<BreakTime, String>("breakTimeSpan"));
         tableList = FXCollections.observableArrayList(breakTimes);
         if(tableList.size() > 9){
-//            tableList.subList(0,9);   Why this no work
             tableList.subList(0, (int) ((long) tableList.size() - 9)).clear();
         }
         Collections.reverse(tableList);
